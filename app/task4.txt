@@ -1,0 +1,5 @@
+The task is to track the object using two approaches: 
+1) tracking by detection using orb features similarly to what you did last week. The difference is that now you need to find homography and use it to draw a plane rectangle on the top of the marker so that it follows the orientation of the marker.
+2) tracking using optical flow (Lucas-Kanade). In this case you initialize the tracker using the ORB features like in the above solution, but after that you update the positioning between the frames using optical flow. The output is to be drawn in the same way as in the approach 1. But it will have different behaviour.
+
+Optional task with increased complexity: augment a cube on the top of the marker.
