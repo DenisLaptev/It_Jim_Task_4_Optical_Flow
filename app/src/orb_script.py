@@ -4,6 +4,9 @@ import numpy as np
 path_to_video = '../resources/find_chocolate.mp4'
 path_to_template = '../resources/marker.jpg'
 
+#path_to_template = '../resources/marker2.png'
+#path_to_video = '../resources/second_chance.mp4'
+
 def meth(img, frame, grayframe):
     print("ORB")
     # ORB Features Detector
@@ -18,7 +21,7 @@ def meth(img, frame, grayframe):
     # Brute Force Matching
     # вместе с orb детектором обычно используется cv2.NORM_HAMMING
     # crossCheck=True - означает, что будет меньше совпадений, но более качественных
-    bf = cv2.BFMatcher(cv2.NORM_HAMMING2, crossCheck=True)
+    bf = cv2.BFMatcher(cv2.NORM_HAMMING2, crossCheck=False)
     matches = bf.match(desc_image, desc_grayframe)
     matches = sorted(matches, key=lambda x: x.distance)  # sort matches with distance
 
@@ -30,14 +33,14 @@ def meth(img, frame, grayframe):
 
     # matches = sorted(matches, key=lambda x: x.distance)
     good_matches = sorted(good_matches, key=lambda x: x.distance)
-    if (len(good_matches) > 10):
-        good_matches = good_matches[:10]
+    if (len(good_matches) > 20):
+        good_matches = good_matches[:20]
 
     # создаём картинку, отображающую совпадения
     img_with_matching = cv2.drawMatches(img, kp_image, grayframe, kp_grayframe, good_matches, grayframe)
 
     # Homography(Гомография) - перспективная трансформация
-    # если число совпадений> 10, ищем гомографию, иначе - отображаем просто grayframe
+    # если число совпадений> 3, ищем гомографию, иначе - отображаем просто grayframe
     if (len(good_matches) > 3):
         #good_matches_truncated = good_matches[:10]
 
